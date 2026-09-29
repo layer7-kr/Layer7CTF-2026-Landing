@@ -1,14 +1,7 @@
 import {
   About,
-  Calendar,
-  CompetitionAbout,
-  Contact,
-  FormAbout,
-  Gallery,
   Hero,
   Merit,
-  Money,
-  Sponsor,
 } from "@/components/home";
 import { Header, Light } from "@/components/ui";
 import Footer from "@/components/ui/footer";
@@ -21,7 +14,11 @@ export default function Home() {
       <Light />
       <Header />
       <Hero />
-      <Sponsor />
+      {/*
+        2025 sponsor logos are intentionally hidden until the 2026 partners
+        are confirmed.
+        <Sponsor />
+      */}
       <About />
       <Merit
         text="재학생과 졸업생이 함께하는 대회"
@@ -34,12 +31,16 @@ export default function Home() {
         image="/images/merit/n2.png"
         reversed
       />
-      <Calendar />
-      <FormAbout />
-      <CompetitionAbout />
-      <Money />
-      <Gallery />
-      <Contact />
+      {/*
+        The following sections contain confirmed 2025 information and will be
+        restored as each 2026 item is announced.
+        <Calendar />
+        <FormAbout />
+        <CompetitionAbout />
+        <Money />
+        <Contact />
+        <Gallery />
+      */}
       <Footer />
     </>
   );

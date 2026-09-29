@@ -68,7 +68,7 @@ export default function About() {
             >
               <Typo.BodyLarge className={s.about_description}>
                 2010년도 대한민국 최초로 고등학생이 주최한 <br /> 전국 해킹
-                대회로 시작해 2025년도까지 이어져 오고 있는 해킹 대회입니다.
+                대회로 시작해 2026년도까지 이어져 오고 있는 해킹 대회입니다.
               </Typo.BodyLarge>
             </motion.div>
           </VStack>

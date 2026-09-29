@@ -1,10 +1,8 @@
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Light } from "@/components/ui";
-import { Link } from "@/data/link";
-
 import Button from "../button";
 import { HStack } from "../stack";
 import Typo from "../typo";
@@ -31,13 +29,6 @@ export default function Header() {
               <a href="/winners" data-active={pathname === "/winners"}>
                 <Typo.Body>Winners</Typo.Body>
               </a>
-              <a href="/authors" data-active={pathname === "/authors"}>
-                <Typo.Body>Authors</Typo.Body>
-              </a>
-              <a href={Link.discord} target="_blank">
-                <Typo.Body>Discord</Typo.Body>
-                <ArrowUpRight />
-              </a>
             </li>
           </ul>
 
@@ -50,22 +41,21 @@ export default function Header() {
           </a>
 
           <HStack gap={10} className={s.header_buttons}>
-            <a href={pathname === "/" ? "#contact" : "/#contact"}>
+            <a href="https://layer7.kr/#faq" target="_blank">
               <Button variant="secondary" className={s.inquiry_button}>
                 문의하기
               </Button>
             </a>
-            <a href={Link.registration} target="_blank">
-              <Button className={s.ctf_button}>Layer7 CTF 참가 신청하기</Button>
-            </a>
+            {/* 2026 registration opens after the schedule is confirmed. */}
+            <Button className={s.ctf_button} disabled>
+              2026 Layer7 CTF Coming Soon
+            </Button>
           </HStack>
 
           <div className={s.mobile_right}>
-            <a href={Link.registration} target="_blank">
-              <Button className={s.mobile_ctf_button}>
-                Layer7 CTF 참가 신청하기
-              </Button>
-            </a>
+            <Button className={s.mobile_ctf_button} disabled>
+              Coming Soon
+            </Button>
             <button className={s.hamburger_menu} onClick={toggleMobileMenu}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -95,20 +85,10 @@ export default function Header() {
               <Typo.Headline>Layer7</Typo.Headline>
             </a>
             <a
-              href="winners"
+              href="/winners"
               className={pathname === "/winners" ? s.active : ""}
             >
               <Typo.Headline>Winners</Typo.Headline>
-            </a>
-            <a
-              href="/authors"
-              className={pathname === "/authors" ? s.active : ""}
-            >
-              <Typo.Headline>Authors</Typo.Headline>
-            </a>
-            <a href={Link.discord} target="_blank">
-              <Typo.Headline>Discord</Typo.Headline>
-              <ArrowUpRight />
             </a>
           </nav>
         </div>
