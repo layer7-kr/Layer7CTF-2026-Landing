@@ -40,9 +40,13 @@ export default function Hero() {
         animate={animation.isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <img src="/flag.svg" alt="" className={s.hero_flag} />
-        <img src="/flag-green.svg" alt="" className={s.hero_flag_green} />
-        <img src="/images/hero/map.svg" alt="Layer7 CTF" className={s.hero_map} />
+        <img src="/flag.svg?v=2026-09-30" alt="" className={s.hero_flag} />
+        <img src="/flag-green.svg?v=2026-09-30" alt="" className={s.hero_flag_green} />
+        <img
+          src="/images/hero/map.svg?v=2026-09-30"
+          alt="Layer7 CTF"
+          className={s.hero_map}
+        />
         <div className={s.hero_map_overlay} />
       </motion.div>
     </section>
