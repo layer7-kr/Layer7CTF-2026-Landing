@@ -1,7 +1,6 @@
 import {
   About,
   Calendar,
-  FormAbout,
   Hero,
   Merit,
   Sponsor,
@@ -20,18 +19,17 @@ export default function Home() {
       <Sponsor />
       <About />
       <Merit
-        text="전국 누구나 참여하는 온라인 개인전"
-        description="중등부·고등부·일반부로 나누어 진행하며, 참가자는 개인 자격으로 실력을 겨룹니다."
+        text="Jeopardy"
+        description="문제를 해결해 플래그를 제출하고 점수를 획득하는 방식입니다."
         image="/images/merit/n1.png"
       />
       <Merit
-        text="실력을 겨루는 CTF"
-        description="문제별 난이도와 풀이 현황에 따라 점수가 동적으로 산정됩니다."
+        text="KOTH"
+        description="제한 시간 동안 시스템을 점유하고 방어해 점수를 획득하는 방식입니다."
         image="/images/merit/n2.png"
         reversed
       />
       <Calendar />
-      <FormAbout />
       <Footer />
     </>
   );

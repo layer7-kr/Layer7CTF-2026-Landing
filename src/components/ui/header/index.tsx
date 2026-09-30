@@ -29,9 +29,6 @@ export default function Header() {
               <a href="/winners" data-active={pathname === "/winners"}>
                 <Typo.Body>Winners</Typo.Body>
               </a>
-              <a href="/authors" data-active={pathname === "/authors"}>
-                <Typo.Body>Authors</Typo.Body>
-              </a>
             </li>
           </ul>
 
@@ -91,12 +88,6 @@ export default function Header() {
               className={pathname === "/winners" ? s.active : ""}
             >
               <Typo.Headline>Winners</Typo.Headline>
-            </a>
-            <a
-              href="/authors"
-              className={pathname === "/authors" ? s.active : ""}
-            >
-              <Typo.Headline>Authors</Typo.Headline>
             </a>
           </nav>
         </div>
