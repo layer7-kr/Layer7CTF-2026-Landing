@@ -17,47 +17,47 @@ export interface PrizeData {
 }
 
 export const Prize: PrizeData = {
-  total: 3000000,
+  total: 1500000,
   middle: {
     first: {
       medal: true,
-      prize: "16만원 상금 및\nDreamhack Pro Plan\n1년 구독권",
+      prize: "후원사 상품 및\nLayer7 굿즈",
     },
     second: {
       medal: true,
-      prize: "8만원 상금 및\nDreamhack Starter Plan\n1년 구독권",
+      prize: "후원사 상품",
     },
     third: {
       medal: true,
-      prize: "6만원 상금 및\nDreamhack Starter Plan\n1년 구독권",
+      prize: "후원사 상품 및\nLayer7 굿즈",
     },
   },
   high: {
     first: {
       medal: true,
-      prize: "40만원 상금 및\nDreamhack Pro Plan\n1년 구독권",
+      prize: "30만원",
     },
     second: {
       medal: true,
-      prize: "30만원 상금 및\nDreamhack Starter Plan\n1년 구독권",
+      prize: "15만원",
     },
     third: {
       medal: true,
-      prize: "20만원 상금 및\nDreamhack Starter Plan\n1년 구독권",
+      prize: "5만원",
     },
   },
   general: {
     first: {
-      medal: false,
-      prize: "80만원 상금 및\nDreamhack Pro Plan\n1년 구독권",
+      medal: true,
+      prize: "50만원",
     },
     second: {
-      medal: false,
-      prize: "60만원 상금 및\nDreamhack 보조배터리",
+      medal: true,
+      prize: "30만원",
     },
     third: {
-      medal: false,
-      prize: "40만원 상금 및\nDreamhack 우산",
+      medal: true,
+      prize: "20만원",
     },
   },
 };

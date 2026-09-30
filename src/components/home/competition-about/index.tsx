@@ -3,20 +3,13 @@ import { motion } from "motion/react";
 import { Section, Typo } from "@/components/ui";
 import { FlexAlign, HStack, VStack } from "@/components/ui/stack";
 import { Competition } from "@/data/competition";
-import { Link } from "@/data/link";
-import {
-  useParallaxAnimation,
-  useScrollAnimation,
-  useStaggerAnimation,
-} from "@/hooks";
+import { useScrollAnimation, useStaggerAnimation } from "@/hooks";
 import { getKoreanDate } from "@/utils/date";
 
 import s from "./style.module.scss";
 
 export default function CompetitionAbout() {
   const IconComponent = Competition[1].icon;
-
-  const imageAnimation = useParallaxAnimation();
 
   const leftAnimation = useScrollAnimation({
     threshold: 0.2,
@@ -39,25 +32,15 @@ export default function CompetitionAbout() {
   return (
     <Section>
       <div className={s.form_about}>
-        <motion.div
-          ref={imageAnimation.ref}
-          style={
-            imageAnimation.isInView
-              ? {
-                  y: imageAnimation.y,
-                  width: "100%",
-                }
-              : {
-                  width: "100%",
-                }
-          }
-        >
-          <img
-            src="/images/competition/sample.png"
-            className={s.image}
-            alt="competition"
-          />
-        </motion.div>
+        <motion.img
+          src="/images/competition/sample.png"
+          className={s.image}
+          alt="Layer7 CTF"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+        />
         <div className={s.content}>
           <motion.div
             className={s.left}
@@ -174,27 +157,6 @@ export default function CompetitionAbout() {
                 </VStack>
               </motion.div>
             </VStack>
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={
-                rightAnimation.isInView
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 15 }
-              }
-              transition={{ duration: 0.8, delay: 0.6 }}
-              style={{ marginTop: 32 }}
-            >
-              <a
-                href={Link.rule_file}
-                target="_blank"
-                download
-                style={{ textDecoration: "none" }}
-              >
-                {/* <Button size="lg" leadingIcon={Download}>
-                  대회규칙 / 운영규정 다운 받기
-                </Button> */}
-              </a>
-            </motion.div>
           </motion.div>
         </div>
         <motion.div

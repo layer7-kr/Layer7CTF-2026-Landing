@@ -8,41 +8,6 @@ import { useScrollAnimation, useStaggerAnimation } from "@/hooks";
 import s from "./style.module.scss";
 
 export default function Money() {
-  const goods = [
-    {
-      id: 1,
-      src: "/images/goods/dreamhack_starter.png",
-      alt: "상품 [드림핵 스타터 1년 구독권]",
-    },
-    {
-      id: 2,
-      src: "/images/goods/airpods.png",
-      alt: "상품 [AirPods 4 노이즈캔슬링]",
-    },
-    {
-      id: 3,
-      src: "/images/goods/dreamhack_battery.png",
-      alt: "상품 [드림핵 보조배터리]",
-    },
-    {
-      id: 4,
-      src: "/images/goods/baemin.png",
-      alt: "상품 [배달의 민족 3만원 상품권]",
-    },
-    { id: 6, src: "/images/goods/pad.png", alt: "상품 [드림핵 장패드]" },
-  ];
-
-  // 아이템 3회 반복 + 두 번째 반복 뒤에 첫 아이템을 한 개 더 삽입해 끊김 최소화
-  const repeatedGoods = [...goods, ...goods, ...goods];
-  const insertIndex = goods.length * 2; // 두 번째 반복의 끝 지점
-  const extendedGoods = [
-    ...repeatedGoods.slice(0, insertIndex),
-    { ...goods[0], id: Number(`${goods[0].id}999`) },
-    ...repeatedGoods.slice(insertIndex),
-  ];
-
-  // 기존 데이터 사용 제거 (정적 테이블 사용)
-
   const titleAnimation = useScrollAnimation({
     threshold: 0.2,
     delay: 0.2,
@@ -55,22 +20,20 @@ export default function Money() {
     duration: 0.6,
   });
 
-  const carouselAnimation = useScrollAnimation({
-    threshold: 0.2,
-    delay: 0.6,
-    duration: 0.8,
-  });
-
   // 상금 문자열에서 현금 금액(예: "20만원")만 추출
   const extractCashAmount = (rawPrize: string) => {
     const match = rawPrize.match(/\d+\s*만원/);
-    return match ? match[0].replace(/\s+/g, "") : rawPrize;
+    return match ? match[0].replace(/\s+/g, "") : "-";
   };
 
   // 상금 문자열에서 비현금 상품 부분 추출 (개행 보존)
   const extractGoods = (rawPrize: string) => {
-    const afterCash = rawPrize.split("상금 및")[1]?.trim();
-    return (afterCash ?? "").trim() || "-";
+    const cash = rawPrize.match(/\d+\s*만원/);
+    if (!cash) return rawPrize;
+    return rawPrize
+      .replace(cash[0], "")
+      .replace(/^\s*상금\s*및\s*/, "")
+      .trim() || "-";
   };
 
   return (
@@ -421,51 +384,8 @@ export default function Money() {
                   </div>
                 </div>
               </div>
-              <motion.div
-                className={s.special_prize}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={
-                  tableAnimation.isInView
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.9 }
-                }
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <Typo.Body>
-                  수상자 전원에게 대회 굿즈와 후원사 굿즈가 담긴 패키지 박스를
-                  드립니다.
-                </Typo.Body>
-              </motion.div>
             </VStack>
           </motion.div>
-        </motion.div>
-      </Section>
-
-      {/* 상품 섹션 */}
-      <Section gap={100}>
-        <motion.div
-          className={s.carousel_section}
-          ref={carouselAnimation.ref}
-          {...carouselAnimation.motionProps}
-        >
-          <Typo.BodyLarge style={{ marginBottom: 32, textAlign: "center" }}>
-            이 외의 다양한 특별상이 준비되어 있어요
-          </Typo.BodyLarge>
-          <div className={s.carousel_container}>
-            <motion.div className={s.carousel_track}>
-              <div className={s.carousel_slides}>
-                {extendedGoods.map((item, index) => (
-                  <motion.div
-                    key={`${item.id}-${index}`}
-                    className={s.carousel_slide}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img src={item.src} alt={item.alt} />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
         </motion.div>
       </Section>
     </>

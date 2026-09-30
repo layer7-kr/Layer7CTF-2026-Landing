@@ -105,11 +105,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <div className={s.history_name}>
-                <img
-                  src="/sunrin.svg"
-                  alt="Layer7"
-                  className={s.history_image}
-                />
+                <img src="/sunrin.svg" alt="선린인터넷고등학교" className={s.history_image} />
                 <Typo.Body>선린모의해킹방어대회</Typo.Body>
               </div>
               <Typo.BodyLarge className={s.history_date}>
@@ -129,11 +125,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className={`${s.history_name} ${s.current}`}>
-              <img
-                src="/layer7_black.svg"
-                alt="Layer7"
-                className={s.history_image}
-              />
+              <img src="/layer7_black.svg" alt="Layer7" className={s.history_image} />
               <Typo.Body>Layer7 CTF</Typo.Body>
             </div>
             <Typo.BodyLarge className={s.history_date}>
