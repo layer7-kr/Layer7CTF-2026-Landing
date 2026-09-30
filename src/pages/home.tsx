@@ -25,7 +25,7 @@ export default function Home() {
       />
       <Merit
         text="KOTH"
-        description="제한 시간 동안 시스템을 점유하고 방어해 점수를 획득하는 방식입니다."
+        description="바이너리나 프로그램을 서버에 반복 제출하고, 평가 결과에 따라 점수를 누적하는 방식입니다."
         image="/images/merit/n2.png"
         reversed
       />
