@@ -18,6 +18,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Sponsor />
+      <Money />
       <About />
       <Merit
         text="Jeopardy"
@@ -31,7 +32,6 @@ export default function Home() {
         reversed
       />
       <Calendar />
-      <Money />
       <Footer />
     </>
   );

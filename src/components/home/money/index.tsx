@@ -20,11 +20,11 @@ export default function Money() {
     duration: 0.6,
   });
 
-  // 상금 문자열에서 현금 금액(예: "20만원")만 추출
+  // 현금 금액을 원 단위와 천 단위 구분자로 표시
   const extractCashAmount = (rawPrize: string) => {
     if (rawPrize === "???") return "???";
-    const match = rawPrize.match(/\d+\s*만원/);
-    return match ? match[0].replace(/\s+/g, "") : "-";
+    const match = rawPrize.match(/(\d+)\s*만원/);
+    return match ? `${(Number(match[1]) * 10000).toLocaleString("ko-KR")}원` : "-";
   };
 
   // 상금 문자열에서 비현금 상품 부분 추출 (개행 보존)
