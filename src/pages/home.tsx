@@ -3,6 +3,7 @@ import {
   Calendar,
   Hero,
   Merit,
+  Money,
   Sponsor,
 } from "@/components/home";
 import { Header, Light } from "@/components/ui";
@@ -30,6 +31,7 @@ export default function Home() {
         reversed
       />
       <Calendar />
+      <Money />
       <Footer />
     </>
   );

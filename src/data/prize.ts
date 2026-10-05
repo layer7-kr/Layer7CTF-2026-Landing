@@ -21,15 +21,15 @@ export const Prize: PrizeData = {
   middle: {
     first: {
       medal: true,
-      prize: "후원사 상품 및\nLayer7 굿즈",
+      prize: "???",
     },
     second: {
       medal: true,
-      prize: "후원사 상품",
+      prize: "???",
     },
     third: {
       medal: true,
-      prize: "후원사 상품 및\nLayer7 굿즈",
+      prize: "???",
     },
   },
   high: {

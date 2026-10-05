@@ -22,6 +22,7 @@ export default function Money() {
 
   // 상금 문자열에서 현금 금액(예: "20만원")만 추출
   const extractCashAmount = (rawPrize: string) => {
+    if (rawPrize === "???") return "???";
     const match = rawPrize.match(/\d+\s*만원/);
     return match ? match[0].replace(/\s+/g, "") : "-";
   };

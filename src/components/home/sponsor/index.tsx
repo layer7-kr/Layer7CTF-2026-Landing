@@ -33,9 +33,13 @@ export default function Sponsor() {
             </HStack>
           </div>
 
-          <VStack gap={10} align={FlexAlign.Center}>
+          <VStack gap={20} align={FlexAlign.Center}>
             <Typo.Body className={s.sponsor_text}>Sponsor</Typo.Body>
-            <Typo.Headline>Coming Soon</Typo.Headline>
+            <img
+              src="/images/sponsor/hspace.svg?v=2026-10-05"
+              alt="HSPACE"
+              className={s.hspace_logo}
+            />
           </VStack>
         </VStack>
       </motion.div>

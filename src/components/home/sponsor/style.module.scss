@@ -2,6 +2,11 @@
     color: $text-subtle;
 }
 
+.hspace_logo {
+    width: min(360px, 76vw);
+    height: auto;
+}
+
 .hosting {
     display: flex;
     gap: $spacing-48;
