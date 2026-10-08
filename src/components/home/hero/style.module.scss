@@ -48,33 +48,25 @@
 .hero_map {
     width: 100%;
     height: 420px;
-    object-fit: contain;
     position: relative;
-    opacity: 0.3;
 }
 
-.hero_map_overlay {
-    width: 100%;
-    height: 130px;
-    margin-top: -130px;
-    background: linear-gradient(to bottom, transparent, $surface-default);
+.hero_planet {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: planet-rotation 120s linear infinite;
 }
 
-.hero_flag, .hero_flag_green {
-    position: absolute;
-    transform: translateX(-50%);
-    object-fit: contain;
-    z-index: 2;
+@keyframes planet-rotation {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.hero_flag {
-    top: -30px;
-    left: calc(50% + 70px);
-}
-
-.hero_flag_green {
-    top: 30px;
-    left: calc(50% - 160px);
+@media (prefers-reduced-motion: reduce) {
+    .hero_planet {
+        animation: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -98,15 +90,5 @@
 
     .hero_map {
         height: 280px;
-    }
-
-    .hero_flag {
-        top: 40px;
-        left: calc(50% + 40px);
-    }
-
-    .hero_flag_green {
-        top: 50px;
-        left: calc(50% - 100px);
     }
 }

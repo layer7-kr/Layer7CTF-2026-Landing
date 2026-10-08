@@ -1,0 +1,121 @@
+.scene {
+    isolation: isolate;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
+.star_layer {
+    position: absolute;
+    inset: -20px;
+}
+
+.star {
+    position: absolute;
+    width: var(--star-size);
+    height: var(--star-size);
+    animation: star-drift var(--drift-duration) ease-in-out var(--drift-delay) infinite alternate;
+}
+
+.star_light {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #e1e9f5;
+    opacity: var(--star-opacity);
+    animation: star-twinkle var(--twinkle-duration) ease-in-out var(--twinkle-delay) infinite;
+}
+
+.meteor_origin {
+    position: absolute;
+    transform: rotate(var(--meteor-angle));
+    transform-origin: left center;
+}
+
+.meteor {
+    position: relative;
+    display: block;
+    width: var(--meteor-length);
+    height: 1px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, rgba(222, 233, 249, 0.2) 55%, #edf3ff);
+    opacity: 0;
+    animation: meteor-flight var(--meteor-duration) linear forwards;
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: -0.5px;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: #f0f5ff;
+        box-shadow: 0 0 6px 1px rgba(213, 228, 255, 0.4);
+    }
+}
+
+.background[data-paused="true"] {
+    .star,
+    .star_light {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes star-drift {
+    to {
+        transform: translate(var(--drift-x), var(--drift-y));
+    }
+}
+
+@keyframes star-twinkle {
+    0%, 58%, 78%, 100% {
+        opacity: var(--star-opacity);
+        transform: scale(1);
+    }
+    67% {
+        opacity: calc(var(--star-opacity) + 0.22);
+        transform: scale(1.3);
+    }
+}
+
+@keyframes meteor-flight {
+    0% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+    12% {
+        opacity: 0.7;
+    }
+    65% {
+        opacity: 0.45;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(var(--meteor-distance));
+    }
+}
+
+@media (max-width: 768px) {
+    .star:nth-child(n + 8) {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .star,
+    .star_light {
+        animation: none;
+    }
+
+    .meteor_origin {
+        display: none;
+    }
+}

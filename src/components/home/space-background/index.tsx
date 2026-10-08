@@ -1,0 +1,189 @@
+import {
+  motion,
+  type MotionValue,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import { type CSSProperties, type ReactNode, useEffect, useState } from "react";
+
+import s from "./style.module.scss";
+
+const METEOR_INTERVAL = 4000;
+const DEPTHS = [0.35, 0.65, 1];
+const SPRING = { stiffness: 35, damping: 18, mass: 1.2 };
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+type StarStyle = CSSProperties & {
+  "--star-size": string;
+  "--star-opacity": number;
+  "--twinkle-duration": string;
+  "--twinkle-delay": string;
+  "--drift-duration": string;
+  "--drift-delay": string;
+  "--drift-x": string;
+  "--drift-y": string;
+};
+
+type MeteorStyle = CSSProperties & {
+  "--meteor-angle": string;
+  "--meteor-length": string;
+  "--meteor-distance": string;
+  "--meteor-duration": string;
+};
+
+function createStars(): StarStyle[][] {
+  return DEPTHS.map((depth, layer) =>
+    Array.from({ length: 16 - layer * 3 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      "--star-size": `${0.7 + depth * 0.6 + Math.random() * 0.7}px`,
+      "--star-opacity": 0.16 + depth * 0.12 + Math.random() * 0.15,
+      "--twinkle-duration": `${22 + Math.random() * 24}s`,
+      "--twinkle-delay": `${-Math.random() * 46}s`,
+      "--drift-duration": `${28 + Math.random() * 24}s`,
+      "--drift-delay": `${-Math.random() * 52}s`,
+      "--drift-x": `${(Math.random() - 0.5) * 10}px`,
+      "--drift-y": `${(Math.random() - 0.5) * 8}px`,
+    })),
+  );
+}
+
+function StarLayer({
+  stars,
+  depth,
+  x,
+  y,
+  reducedMotion,
+}: {
+  stars: StarStyle[];
+  depth: number;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+  reducedMotion: boolean;
+}) {
+  const offsetX = useTransform(x, (value) => value * depth);
+  const offsetY = useTransform(y, (value) => value * depth);
+
+  return (
+    <motion.div
+      className={s.star_layer}
+      style={{ x: reducedMotion ? 0 : offsetX, y: reducedMotion ? 0 : offsetY }}
+    >
+      {stars.map((style, index) => (
+        <span className={s.star} style={style} key={index}>
+          <span className={s.star_light} />
+        </span>
+      ))}
+    </motion.div>
+  );
+}
+
+export default function SpaceBackground({ children }: { children: ReactNode }) {
+  const [stars] = useState(createStars);
+  const [meteor, setMeteor] = useState<{
+    id: number;
+    style: MeteorStyle;
+  } | null>(null);
+  const [visible, setVisible] = useState(!document.hidden);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+  );
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const x = useSpring(pointerX, SPRING);
+  const y = useSpring(pointerY, SPRING);
+
+  useEffect(() => {
+    const preference = window.matchMedia(REDUCED_MOTION_QUERY);
+    const onMotionPreferenceChange = () => setReducedMotion(preference.matches);
+    const onVisibilityChange = () => setVisible(!document.hidden);
+    preference.addEventListener("change", onMotionPreferenceChange);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      preference.removeEventListener("change", onMotionPreferenceChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const resetPointer = () => {
+      pointerX.set(0);
+      pointerY.set(0);
+    };
+
+    if (reducedMotion || !visible) {
+      resetPointer();
+      return;
+    }
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      pointerX.set((event.clientX / window.innerWidth - 0.5) * 28);
+      pointerY.set((event.clientY / window.innerHeight - 0.5) * 20);
+    };
+    const onPointerOut = (event: PointerEvent) => {
+      if (!event.relatedTarget) resetPointer();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointerout", onPointerOut);
+    window.addEventListener("blur", resetPointer);
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerout", onPointerOut);
+      window.removeEventListener("blur", resetPointer);
+    };
+  }, [pointerX, pointerY, reducedMotion, visible]);
+
+  useEffect(() => {
+    if (reducedMotion || !visible) {
+      setMeteor(null);
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      const distance = Math.min(340, window.innerWidth * 0.35);
+      setMeteor({
+        id: performance.now(),
+        style: {
+          left: `${6 + Math.random() * 52}%`,
+          top: `${8 + Math.random() * 58}%`,
+          "--meteor-angle": `${20 + Math.random() * 20}deg`,
+          "--meteor-length": `${Math.min(130, window.innerWidth * 0.18)}px`,
+          "--meteor-distance": `${distance * (0.7 + Math.random() * 0.3)}px`,
+          "--meteor-duration": `${1100 + Math.random() * 500}ms`,
+        },
+      });
+    }, METEOR_INTERVAL);
+
+    return () => window.clearInterval(interval);
+  }, [reducedMotion, visible]);
+
+  return (
+    <div className={s.scene}>
+      <div
+        className={s.background}
+        aria-hidden="true"
+        data-paused={!visible || reducedMotion}
+      >
+        {stars.map((layer, index) => (
+          <StarLayer
+            stars={layer}
+            depth={DEPTHS[index]}
+            x={x}
+            y={y}
+            reducedMotion={reducedMotion}
+            key={index}
+          />
+        ))}
+        {meteor && (
+          <div className={s.meteor_origin} style={meteor.style} key={meteor.id}>
+            <span className={s.meteor} onAnimationEnd={() => setMeteor(null)} />
+          </div>
+        )}
+      </div>
+      {children}
+    </div>
+  );
+}

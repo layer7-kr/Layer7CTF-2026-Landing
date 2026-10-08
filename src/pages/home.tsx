@@ -6,13 +6,14 @@ import {
   Money,
   Sponsor,
 } from "@/components/home";
+import SpaceBackground from "@/components/home/space-background";
 import { Header, Light } from "@/components/ui";
 import Footer from "@/components/ui/footer";
 import Spacing from "@/components/ui/spacing";
 
 export default function Home() {
   return (
-    <>
+    <SpaceBackground>
       <Spacing size={64} />
       <Light />
       <Header />
@@ -33,6 +34,6 @@ export default function Home() {
       />
       <Calendar />
       <Footer />
-    </>
+    </SpaceBackground>
   );
 }
