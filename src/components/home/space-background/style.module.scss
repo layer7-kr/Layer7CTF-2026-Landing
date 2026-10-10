@@ -1,9 +1,11 @@
 .scene {
+    position: relative;
     isolation: isolate;
 }
 
 .background {
-    position: fixed;
+    // Keep the sky anchored to the page as the content scrolls.
+    position: absolute;
     inset: 0;
     z-index: -1;
     overflow: hidden;
@@ -104,7 +106,7 @@
 }
 
 @media (max-width: 768px) {
-    .star:nth-child(n + 8) {
+    .star:nth-child(even) {
         display: none;
     }
 }

@@ -5,12 +5,13 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { type CSSProperties, type ReactNode, useEffect, useState } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
 
 import s from "./style.module.scss";
 
 const METEOR_INTERVAL = 4000;
 const DEPTHS = [0.35, 0.65, 1];
+const STAR_BAND_HEIGHT = 800;
 const SPRING = { stiffness: 35, damping: 18, mass: 1.2 };
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -32,11 +33,13 @@ type MeteorStyle = CSSProperties & {
   "--meteor-duration": string;
 };
 
-function createStars(): StarStyle[][] {
-  return DEPTHS.map((depth, layer) =>
-    Array.from({ length: 16 - layer * 3 }, () => ({
+function createStars(bands = 1): StarStyle[][] {
+  return DEPTHS.map((depth, layer) => {
+    const count = (16 - layer * 3) * bands;
+    return Array.from({ length: count }, (_, index) => ({
       left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
+      // Spread stars evenly from the beginning to the end of the page.
+      top: `${((index + Math.random()) / count) * 100}%`,
       "--star-size": `${0.7 + depth * 0.6 + Math.random() * 0.7}px`,
       "--star-opacity": 0.16 + depth * 0.12 + Math.random() * 0.15,
       "--twinkle-duration": `${22 + Math.random() * 24}s`,
@@ -45,8 +48,8 @@ function createStars(): StarStyle[][] {
       "--drift-delay": `${-Math.random() * 52}s`,
       "--drift-x": `${(Math.random() - 0.5) * 10}px`,
       "--drift-y": `${(Math.random() - 0.5) * 8}px`,
-    })),
-  );
+    }));
+  });
 }
 
 function StarLayer({
@@ -80,7 +83,8 @@ function StarLayer({
 }
 
 export default function SpaceBackground({ children }: { children: ReactNode }) {
-  const [stars] = useState(createStars);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [stars, setStars] = useState(() => createStars());
   const [meteor, setMeteor] = useState<{
     id: number;
     style: MeteorStyle;
@@ -93,6 +97,24 @@ export default function SpaceBackground({ children }: { children: ReactNode }) {
   const pointerY = useMotionValue(0);
   const x = useSpring(pointerX, SPRING);
   const y = useSpring(pointerY, SPRING);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    let previousBands = 1;
+    const updateStars = () => {
+      const bands = Math.max(1, Math.ceil(scene.clientHeight / STAR_BAND_HEIGHT));
+      if (bands === previousBands) return;
+      previousBands = bands;
+      setStars(createStars(bands));
+    };
+
+    updateStars();
+    const observer = new ResizeObserver(updateStars);
+    observer.observe(scene);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const preference = window.matchMedia(REDUCED_MOTION_QUERY);
@@ -148,7 +170,7 @@ export default function SpaceBackground({ children }: { children: ReactNode }) {
         id: performance.now(),
         style: {
           left: `${6 + Math.random() * 52}%`,
-          top: `${8 + Math.random() * 58}%`,
+          top: `${2 + Math.random() * 94}%`,
           "--meteor-angle": `${20 + Math.random() * 20}deg`,
           "--meteor-length": `${Math.min(130, window.innerWidth * 0.18)}px`,
           "--meteor-distance": `${distance * (0.7 + Math.random() * 0.3)}px`,
@@ -161,7 +183,7 @@ export default function SpaceBackground({ children }: { children: ReactNode }) {
   }, [reducedMotion, visible]);
 
   return (
-    <div className={s.scene}>
+    <div className={s.scene} ref={sceneRef}>
       <div
         className={s.background}
         aria-hidden="true"
