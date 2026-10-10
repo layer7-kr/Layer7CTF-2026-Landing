@@ -84,6 +84,7 @@ function StarLayer({
 
 export default function SpaceBackground({ children }: { children: ReactNode }) {
   const sceneRef = useRef<HTMLDivElement>(null);
+  const meteorLayerRef = useRef<HTMLDivElement>(null);
   const [stars, setStars] = useState(() => createStars());
   const [meteor, setMeteor] = useState<{
     id: number;
@@ -165,21 +166,45 @@ export default function SpaceBackground({ children }: { children: ReactNode }) {
     }
 
     const interval = window.setInterval(() => {
-      const distance = Math.min(340, window.innerWidth * 0.35);
+      const layer = meteorLayerRef.current;
+      if (!layer || !layer.clientWidth || !layer.clientHeight) return;
+
+      const width = layer.clientWidth;
+      const height = layer.clientHeight;
+      const margin = Math.min(12, width / 4, height / 4);
+      const angle = 20 + Math.random() * 20;
+      const radians = (angle * Math.PI) / 180;
+      const length = Math.min(130, width * 0.18);
+      const distance = Math.min(340, width * 0.35) * (0.7 + Math.random() * 0.3);
+      // Reserve room for both the trail and its entire flight, even in short viewports.
+      const scale = Math.min(
+        1,
+        (width - margin * 2) / ((length + distance) * Math.cos(radians)),
+        (height - margin * 2) / ((length + distance) * Math.sin(radians)),
+      );
+      const travelWidth = (length + distance) * scale * Math.cos(radians);
+      const travelHeight = (length + distance) * scale * Math.sin(radians);
       setMeteor({
         id: performance.now(),
         style: {
-          left: `${6 + Math.random() * 52}%`,
-          top: `${2 + Math.random() * 94}%`,
-          "--meteor-angle": `${20 + Math.random() * 20}deg`,
-          "--meteor-length": `${Math.min(130, window.innerWidth * 0.18)}px`,
-          "--meteor-distance": `${distance * (0.7 + Math.random() * 0.3)}px`,
+          left: `${margin + Math.random() * Math.max(0, width - margin * 2 - travelWidth)}px`,
+          top: `${margin + Math.random() * Math.max(0, height - margin * 2 - travelHeight)}px`,
+          "--meteor-angle": `${angle}deg`,
+          "--meteor-length": `${length * scale}px`,
+          "--meteor-distance": `${distance * scale}px`,
           "--meteor-duration": `${1100 + Math.random() * 500}ms`,
         },
       });
     }, METEOR_INTERVAL);
 
-    return () => window.clearInterval(interval);
+    const clearMeteor = () => setMeteor(null);
+    const observer = new ResizeObserver(clearMeteor);
+    if (meteorLayerRef.current) observer.observe(meteorLayerRef.current);
+
+    return () => {
+      window.clearInterval(interval);
+      observer.disconnect();
+    };
   }, [reducedMotion, visible]);
 
   return (
@@ -199,6 +224,8 @@ export default function SpaceBackground({ children }: { children: ReactNode }) {
             key={index}
           />
         ))}
+      </div>
+      <div className={s.meteor_layer} ref={meteorLayerRef} aria-hidden="true">
         {meteor && (
           <div className={s.meteor_origin} style={meteor.style} key={meteor.id}>
             <span className={s.meteor} onAnimationEnd={() => setMeteor(null)} />

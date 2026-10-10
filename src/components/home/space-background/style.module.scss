@@ -35,6 +35,15 @@
     animation: star-twinkle var(--twinkle-duration) ease-in-out var(--twinkle-delay) infinite;
 }
 
+.meteor_layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
 .meteor_origin {
     position: absolute;
     transform: rotate(var(--meteor-angle));
