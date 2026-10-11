@@ -49,7 +49,7 @@ export default function Header() {
                 <Typo.Body>Winners</Typo.Body>
               </a>
               <a href="/article" data-active={isArticlePage}>
-                <Typo.Body>공지사항</Typo.Body>
+                <Typo.Body>Notice</Typo.Body>
               </a>
             </li>
           </ul>
@@ -120,7 +120,7 @@ export default function Header() {
               <Typo.Headline>Winners</Typo.Headline>
             </a>
             <a href="/article" className={isArticlePage ? s.active : ""}>
-              <Typo.Headline>공지사항</Typo.Headline>
+              <Typo.Headline>Notice</Typo.Headline>
             </a>
           </nav>
         </div>
