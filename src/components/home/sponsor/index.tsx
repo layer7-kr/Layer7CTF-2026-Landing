@@ -25,11 +25,25 @@ export default function Sponsor() {
           <div className={s.hosting}>
             <HStack gap={20} align={FlexAlign.Center}>
               <Typo.Body className={s.sponsor_text}>주최</Typo.Body>
-              <Typo.BodyLarge>선린인터넷고등학교</Typo.BodyLarge>
+              <HStack gap={12} align={FlexAlign.Center}>
+                <img
+                  src="/sunrin.svg"
+                  alt="선린인터넷고등학교 로고"
+                  className={s.sunrin}
+                />
+                <Typo.BodyLarge>선린인터넷고등학교</Typo.BodyLarge>
+              </HStack>
             </HStack>
             <HStack gap={20} align={FlexAlign.Center}>
               <Typo.Body className={s.sponsor_text}>주관</Typo.Body>
-              <Typo.BodyLarge>Layer7</Typo.BodyLarge>
+              <HStack gap={12} align={FlexAlign.Center}>
+                <img
+                  src="/layer7.svg"
+                  alt="Layer7 로고"
+                  className={s.layer7}
+                />
+                <Typo.BodyLarge>Layer7</Typo.BodyLarge>
+              </HStack>
             </HStack>
           </div>
 
