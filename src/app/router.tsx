@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Home, Winner } from "@/pages";
+import { Article, ArticleDetail, Home, Winner } from "@/pages";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +10,14 @@ const router = createBrowserRouter([
   {
     path: "/winners",
     element: <Winner />,
+  },
+  {
+    path: "/article",
+    element: <Article />,
+  },
+  {
+    path: "/article/:id",
+    element: <ArticleDetail />,
   },
 ]);
 

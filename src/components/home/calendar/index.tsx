@@ -1,13 +1,27 @@
-import { File, Flag, ShieldCheck } from "lucide-react";
+import { File, Flag, Megaphone, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
 
-import { Typo } from "@/components/ui";
+import { NewTag, Typo } from "@/components/ui";
 import { HStack, VStack } from "@/components/ui/stack";
 import { useScrollAnimation, useStaggerAnimation } from "@/hooks";
+import { getAllArticles } from "@/utils/posts";
 
 import s from "./style.module.scss";
 
 export default function Calendar() {
+  const [latestTitle, latestSlug, isNew] = (() => {
+    try {
+      const first = getAllArticles()[0];
+      if (!first) return ["공지사항이 없습니다", "/article", false] as const;
+      const recentThreshold = new Date();
+      recentThreshold.setDate(recentThreshold.getDate() - 7);
+      const isRecent = new Date(first.date) >= recentThreshold;
+      return [first.title, `/article/${first.slug}`, isRecent] as const;
+    } catch {
+      return ["공지사항이 없습니다", "/article", false] as const;
+    }
+  })();
+
   const titleAnimation = useScrollAnimation({
     threshold: 0.2,
     delay: 0.2,
@@ -38,11 +52,19 @@ export default function Calendar() {
                 참가 신청과 세부 운영 안내는 순차적으로 공개됩니다.
               </Typo.BodyLarge>
             </VStack>
-            <div className={s.recent_notice}>
-              <Typo.Body>NOTICE</Typo.Body>
-              <Typo.BodyLarge>Coming Soon</Typo.BodyLarge>
-              <Typo.Subtext className={s.recent_notice_link}>세부 공지 준비 중</Typo.Subtext>
-            </div>
+            <a href={latestSlug} className={s.recent_notice}>
+              <HStack gap={8}>
+                <Megaphone size={20} />
+                <Typo.Body>최근 공지</Typo.Body>
+              </HStack>
+              <HStack gap={12}>
+                <Typo.Body>{latestTitle}</Typo.Body>
+                {isNew && <NewTag />}
+              </HStack>
+              <Typo.Subtext className={s.recent_notice_link}>
+                눌러서 공지사항 보러가기
+              </Typo.Subtext>
+            </a>
           </VStack>
         </motion.div>
 
