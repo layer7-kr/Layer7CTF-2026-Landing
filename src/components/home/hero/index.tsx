@@ -3,7 +3,6 @@ import { useId, useState } from "react";
 
 import { Typo } from "@/components/ui";
 import Spacing from "@/components/ui/spacing";
-import { FlexAlign, VStack } from "@/components/ui/stack";
 import { useScrollAnimation } from "@/hooks";
 
 import HeroFlag from "./flag";
@@ -31,10 +30,10 @@ export default function Hero() {
         }
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <VStack gap={12} align={FlexAlign.Center}>
-          <h2 className={s.hero_subtitle}>We hack the</h2>
-          <h1 className={s.hero_title}>2026 Layer7 CTF</h1>
-        </VStack>
+        <h1 className={s.hero_heading}>
+          <span className={s.hero_subtitle}>WE HACK THE</span>{" "}
+          <span className={s.hero_title}>LAYER7 CTF 26</span>
+        </h1>
         <div className={s.countdown_container}>
           <Typo.BodyLarge className={s.coming_soon}>Coming Soon</Typo.BodyLarge>
         </div>
