@@ -240,7 +240,17 @@
         }
     }
 
+    .hero_map_container {
+        width: calc(100% + #{$padding * 2});
+        overflow: hidden;
+    }
+
     .hero_map {
+        // Keep the wide scene readable on phones, cropping only its outer edges.
+        display: block;
+        min-width: 768px;
         height: 280px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
