@@ -32,8 +32,8 @@ export default function Home() {
         image="/images/merit/n2.png"
         reversed
       />
-      <Money />
       <Calendar />
+      <Money />
       <Contact />
       <Footer />
     </SpaceBackground>
