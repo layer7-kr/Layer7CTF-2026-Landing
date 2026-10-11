@@ -7,25 +7,35 @@
 }
 
 .hero_text {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: $spacing-32;
 
-    .hero_title, .hero_subtitle {
-        font-weight: 400;
-        text-transform: uppercase;
-    }
-
-    .hero_title {
-        font-size: 78px;
-        letter-spacing: -2px;
+    .hero_heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-12;
+        font-family: "PP Neue Machina Plain", $font-primary;
+        font-weight: 800;
+        line-height: 1.1;
         text-align: center;
     }
 
+    .hero_title, .hero_subtitle {
+        font: inherit;
+    }
+
+    .hero_title {
+        font-size: clamp(28px, 6.5vw, 78px);
+        letter-spacing: -0.025em;
+    }
+
     .hero_subtitle {
-        font-size: 40px;
-        letter-spacing: 2px;
+        font-size: clamp(20px, 3.35vw, 40px);
+        letter-spacing: 0.05em;
         color: $text-subtle;
     }
 }
@@ -230,13 +240,11 @@
         gap: $spacing-24;
 
         .hero_title {
-            font-size: 48px;
-            letter-spacing: -1px;
+            font-size: clamp(28px, 10vw, 48px);
         }
 
         .hero_subtitle {
-            font-size: 24px;
-            letter-spacing: 1px;
+            font-size: clamp(20px, 3.125vw, 24px);
         }
     }
 
