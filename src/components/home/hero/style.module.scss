@@ -52,19 +52,171 @@
 }
 
 .hero_planet {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: planet-rotation 120s linear infinite;
+    animation: planet-float 6s ease-in-out infinite;
 }
 
-@keyframes planet-rotation {
+.planet_reveal,
+.planet_glow {
+    transform-box: view-box;
+    transform-origin: 721px 224px;
+}
+
+.planet_reveal {
+    animation: planet-arrive 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.planet_glow {
+    opacity: 0;
+    animation: planet-ignite 2.5s ease-out 0.15s both;
+}
+
+.planet_light {
+    opacity: 0;
+    animation: planet-sweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.55s both;
+}
+
+.planet_rim {
+    opacity: 0;
+    animation: planet-rim 1.9s ease-out 0.35s both;
+}
+
+.hero_rings {
+    animation: layer-arrive 1.6s ease-out 0.45s both;
+}
+
+.hero_stars {
+    animation: layer-arrive 1.8s ease-out 0.65s both;
+}
+
+.hero_marker {
+    animation: layer-arrive 0.9s ease-out 1.15s both;
+}
+
+.flag_unfurl {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: flag-unfurl 1.15s cubic-bezier(0.16, 1, 0.3, 1) 1.25s both;
+}
+
+.flag_cloth_near {
+    filter: drop-shadow(0 0 2px rgba(32, 247, 161, 0.22));
+}
+
+// Start the sequence together once the planet and both ring assets are ready.
+.hero_map_container[data-revealed="false"] {
+    .hero_planet,
+    .planet_reveal,
+    .planet_glow,
+    .planet_light,
+    .planet_rim,
+    .hero_rings,
+    .hero_stars,
+    .hero_marker,
+    .flag_unfurl {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes planet-arrive {
+    0% {
+        opacity: 0;
+        transform: scale(0.78);
+        filter: blur(7px);
+    }
+    55% {
+        opacity: 1;
+        filter: blur(0);
+    }
+    75% {
+        transform: scale(1.035);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: none;
+    }
+}
+
+@keyframes planet-ignite {
+    0% {
+        opacity: 0;
+        transform: scale(0.65);
+    }
+    30% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes planet-sweep {
+    0% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+    25%, 65% {
+        opacity: 0.65;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(390px);
+    }
+}
+
+@keyframes planet-rim {
+    0%, 100% {
+        opacity: 0;
+    }
+    35% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes layer-arrive {
+    from {
+        opacity: 0;
+    }
     to {
-        transform: rotate(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes flag-unfurl {
+    from {
+        opacity: 0;
+        transform: scaleX(0.12);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes planet-float {
+    0%, 100% {
+        transform: translateY(-8px);
+    }
+    50% {
+        transform: translateY(8px);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero_planet {
+    .hero_planet,
+    .planet_reveal,
+    .hero_rings,
+    .hero_stars,
+    .hero_marker,
+    .flag_unfurl {
+        animation: none;
+    }
+
+    .planet_glow,
+    .planet_light,
+    .planet_rim {
+        display: none;
         animation: none;
     }
 }

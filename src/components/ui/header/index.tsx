@@ -3,6 +3,11 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Light } from "@/components/ui";
+import { Link } from "@/data/link";
+import {
+  getRegistrationStatus,
+  useRegistrationStatus,
+} from "@/hooks/useRegistrationStatus";
 import Button from "../button";
 import { HStack } from "../stack";
 import Typo from "../typo";
@@ -12,6 +17,19 @@ import s from "./style.module.scss";
 export default function Header() {
   const pathname = useLocation().pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const registrationStatus = useRegistrationStatus();
+  const registrationLabel =
+    registrationStatus === "open"
+      ? "참가 신청"
+      : registrationStatus === "closed"
+        ? "신청 마감"
+        : "Coming Soon";
+
+  const openRegistration = () => {
+    if (getRegistrationStatus() === "open") {
+      window.location.assign(Link.registration);
+    }
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -46,14 +64,22 @@ export default function Header() {
                 문의하기
               </Button>
             </a>
-            <Button className={s.ctf_button} disabled>
-              2026 Layer7 CTF Coming Soon
+            <Button
+              className={s.ctf_button}
+              disabled={registrationStatus !== "open"}
+              onClick={openRegistration}
+            >
+              2026 Layer7 CTF {registrationLabel}
             </Button>
           </HStack>
 
           <div className={s.mobile_right}>
-            <Button className={s.mobile_ctf_button} disabled>
-              Coming Soon
+            <Button
+              className={s.mobile_ctf_button}
+              disabled={registrationStatus !== "open"}
+              onClick={openRegistration}
+            >
+              {registrationLabel}
             </Button>
             <button className={s.hamburger_menu} onClick={toggleMobileMenu}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

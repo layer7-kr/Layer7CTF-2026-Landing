@@ -5,7 +5,7 @@ export const Competition = [
     icon: File,
     title: "대회 신청",
     startDate: new Date("2026-10-19T00:00:00+09:00").getTime(),
-    endDate: new Date("2026-11-20T23:59:59+09:00").getTime(),
+    endDate: new Date("2026-11-20T23:59:59.999+09:00").getTime(),
     description: "온라인 개인전으로 진행되며, 참가 신청에 관한 자세한 안내는 추후 공개됩니다.",
     eligibility: [
       {
