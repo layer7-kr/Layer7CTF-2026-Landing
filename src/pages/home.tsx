@@ -1,6 +1,7 @@
 import {
   About,
   Calendar,
+  Contact,
   Hero,
   Merit,
   Money,
@@ -33,6 +34,7 @@ export default function Home() {
       />
       <Money />
       <Calendar />
+      <Contact />
       <Footer />
     </SpaceBackground>
   );

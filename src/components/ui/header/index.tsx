@@ -16,6 +16,7 @@ import s from "./style.module.scss";
 
 export default function Header() {
   const pathname = useLocation().pathname;
+  const isArticlePage = pathname === "/article" || pathname.startsWith("/article/");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const registrationStatus = useRegistrationStatus();
   const registrationLabel =
@@ -46,6 +47,9 @@ export default function Header() {
               </a>
               <a href="/winners" data-active={pathname === "/winners"}>
                 <Typo.Body>Winners</Typo.Body>
+              </a>
+              <a href="/article" data-active={isArticlePage}>
+                <Typo.Body>공지사항</Typo.Body>
               </a>
             </li>
           </ul>
@@ -114,6 +118,9 @@ export default function Header() {
               className={pathname === "/winners" ? s.active : ""}
             >
               <Typo.Headline>Winners</Typo.Headline>
+            </a>
+            <a href="/article" className={isArticlePage ? s.active : ""}>
+              <Typo.Headline>공지사항</Typo.Headline>
             </a>
           </nav>
         </div>
