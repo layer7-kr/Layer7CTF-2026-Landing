@@ -73,7 +73,7 @@ export default function Header() {
               disabled={registrationStatus !== "open"}
               onClick={openRegistration}
             >
-              2026 Layer7 CTF {registrationLabel}
+              Layer7 CTF 26 {registrationLabel}
             </Button>
           </HStack>
 
