@@ -21,15 +21,15 @@ export const Prize: PrizeData = {
   middle: {
     first: {
       medal: true,
-      prize: "???",
+      prize: "Dreamhack Pro Plan 1년 구독권",
     },
     second: {
       medal: true,
-      prize: "???",
+      prize: "Dreamhack Starter Plan 1년 구독권",
     },
     third: {
       medal: true,
-      prize: "???",
+      prize: "Dreamhack Starter Plan 1년 구독권",
     },
   },
   high: {
