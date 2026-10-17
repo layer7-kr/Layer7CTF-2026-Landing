@@ -68,6 +68,11 @@ export default function Header() {
                 문의하기
               </Button>
             </a>
+            {registrationStatus !== "upcoming" && (
+              <a href={Link.discord} target="_blank" rel="noreferrer">
+                <Button variant="secondary">디스코드</Button>
+              </a>
+            )}
             <Button
               className={s.ctf_button}
               disabled={registrationStatus !== "open"}
@@ -122,6 +127,11 @@ export default function Header() {
             <a href="/article" className={isArticlePage ? s.active : ""}>
               <Typo.Headline>Notice</Typo.Headline>
             </a>
+            {registrationStatus !== "upcoming" && (
+              <a href={Link.discord} target="_blank" rel="noreferrer">
+                <Typo.Headline>Discord</Typo.Headline>
+              </a>
+            )}
           </nav>
         </div>
       </div>
