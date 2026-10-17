@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 import { Typo } from "@/components/ui";
 import Spacing from "@/components/ui/spacing";
+import { Competition } from "@/data/competition";
 import { useScrollAnimation } from "@/hooks";
 
 import HeroFlag from "./flag";
@@ -18,6 +19,24 @@ export default function Hero() {
     duration: 0.8,
   });
   const revealed = animation.isInView && readyLayers >= 3;
+  const competitionStart = Competition[1].startDate;
+  const [timeLeft, setTimeLeft] = useState(() =>
+    Math.max(competitionStart - Date.now(), 0),
+  );
+
+  useEffect(() => {
+    const updateTimeLeft = () => {
+      setTimeLeft(Math.max(competitionStart - Date.now(), 0));
+    };
+    const timer = window.setInterval(updateTimeLeft, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [competitionStart]);
+
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+  const seconds = Math.floor((timeLeft / 1000) % 60);
 
   return (
     <section className={s.hero}>
@@ -35,7 +54,14 @@ export default function Hero() {
           <span className={s.hero_title}>LAYER7 CTF 26</span>
         </h1>
         <div className={s.countdown_container}>
-          <Typo.BodyLarge className={s.coming_soon}>Coming Soon</Typo.BodyLarge>
+          <Typo.BodyLarge className={s.coming_soon}>
+            {timeLeft > 0 ? "대회 시작까지" : "대회가 시작되었습니다"}
+          </Typo.BodyLarge>
+          {timeLeft > 0 && (
+            <Typo.Headline className={s.countdown}>
+              {days}일 {hours}시간 {minutes}분 {seconds}초
+            </Typo.Headline>
+          )}
         </div>
       </motion.div>
 

@@ -63,7 +63,7 @@ export default function Header() {
           </a>
 
           <HStack gap={10} className={s.header_buttons}>
-            <a href="https://layer7.kr/#faq" target="_blank">
+            <a href="/#contact">
               <Button variant="secondary" className={s.inquiry_button}>
                 문의하기
               </Button>

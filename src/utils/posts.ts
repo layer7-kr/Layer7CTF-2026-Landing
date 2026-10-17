@@ -14,6 +14,11 @@ function toTime(value: string | undefined): number {
   return Number.isNaN(t) ? 0 : t;
 }
 
+function isPublished(post: Post, now = Date.now()): boolean {
+  const publishTime = toTime(post.metadata.publishedAt || post.metadata.date);
+  return publishTime === 0 || publishTime <= now;
+}
+
 /**
  * posts 폴더에서 모든 마크다운 파일을 가져와서 파싱합니다.
  * Vite의 import.meta.glob을 사용하여 동적으로 파일을 가져옵니다.
@@ -51,9 +56,9 @@ export async function getAllPosts(): Promise<Post[]> {
   }
 
   // 날짜 기준으로 내림차순 정렬 (최신순)
-  return posts.sort(
-    (a, b) => toTime(b.metadata.date) - toTime(a.metadata.date),
-  );
+  return posts
+    .filter((post) => isPublished(post))
+    .sort((a, b) => toTime(b.metadata.date) - toTime(a.metadata.date));
 }
 
 /**
@@ -88,12 +93,20 @@ export function getAllArticles(): Article[] {
       const fileDate = new Date();
       const postDate = metadata.date || formatDate(fileDate);
 
-      articles.push({
+      const post = {
         slug,
-        title: metadata.title || "제목 없음",
-        date: postDate,
-        content: markdownToHtml(postContent),
-      });
+        metadata: { ...metadata, date: postDate },
+        content: postContent,
+      };
+
+      if (isPublished(post)) {
+        articles.push({
+          slug,
+          title: metadata.title || "제목 없음",
+          date: postDate,
+          content: markdownToHtml(postContent),
+        });
+      }
     } catch (error) {
       console.error(`Error loading article from ${path}:`, error);
     }
