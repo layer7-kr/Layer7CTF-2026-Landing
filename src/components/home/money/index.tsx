@@ -206,14 +206,6 @@ export default function Money() {
                         {extractCashAmount(Prize.general.first.prize)}
                       </Typo.Body>
                     </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.general.first.prize)}
-                        </span>
-                      </Typo.Body>
-                    </div>
                   </div>
                   <div className={s.card}>
                     <div className={s.card_row}>
@@ -228,14 +220,6 @@ export default function Money() {
                         </span>
                       </Typo.Body>
                     </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.general.second.prize)}
-                        </span>
-                      </Typo.Body>
-                    </div>
                   </div>
                   <div className={s.card}>
                     <div className={s.card_row}>
@@ -246,14 +230,6 @@ export default function Money() {
                       <Typo.Body className={s.label}>상금</Typo.Body>
                       <Typo.Body>
                         {extractCashAmount(Prize.general.third.prize)}
-                      </Typo.Body>
-                    </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.general.third.prize)}
-                        </span>
                       </Typo.Body>
                     </div>
                   </div>
@@ -271,14 +247,6 @@ export default function Money() {
                         {extractCashAmount(Prize.high.first.prize)}
                       </Typo.Body>
                     </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.high.first.prize)}
-                        </span>
-                      </Typo.Body>
-                    </div>
                   </div>
                   <div className={s.card}>
                     <div className={s.card_row}>
@@ -289,14 +257,6 @@ export default function Money() {
                       <Typo.Body className={s.label}>상금</Typo.Body>
                       <Typo.Body>
                         {extractCashAmount(Prize.high.second.prize)}
-                      </Typo.Body>
-                    </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.high.second.prize)}
-                        </span>
                       </Typo.Body>
                     </div>
                   </div>
@@ -311,14 +271,6 @@ export default function Money() {
                         {extractCashAmount(Prize.high.third.prize)}
                       </Typo.Body>
                     </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상품</Typo.Body>
-                      <Typo.Body>
-                        <span style={{ whiteSpace: "pre-line" }}>
-                          {extractGoods(Prize.high.third.prize)}
-                        </span>
-                      </Typo.Body>
-                    </div>
                   </div>
                 </div>
                 <div className={s.card_group}>
@@ -327,12 +279,6 @@ export default function Money() {
                     <div className={s.card_row}>
                       <Typo.Body className={s.label}>구분</Typo.Body>
                       <Typo.Body>1등</Typo.Body>
-                    </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상금</Typo.Body>
-                      <Typo.Body>
-                        {extractCashAmount(Prize.middle.first.prize)}
-                      </Typo.Body>
                     </div>
                     <div className={s.card_row}>
                       <Typo.Body className={s.label}>상품</Typo.Body>
@@ -349,12 +295,6 @@ export default function Money() {
                       <Typo.Body>2등</Typo.Body>
                     </div>
                     <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상금</Typo.Body>
-                      <Typo.Body>
-                        {extractCashAmount(Prize.middle.second.prize)}
-                      </Typo.Body>
-                    </div>
-                    <div className={s.card_row}>
                       <Typo.Body className={s.label}>상품</Typo.Body>
                       <Typo.Body>
                         <span style={{ whiteSpace: "pre-line" }}>
@@ -367,12 +307,6 @@ export default function Money() {
                     <div className={s.card_row}>
                       <Typo.Body className={s.label}>구분</Typo.Body>
                       <Typo.Body>3등</Typo.Body>
-                    </div>
-                    <div className={s.card_row}>
-                      <Typo.Body className={s.label}>상금</Typo.Body>
-                      <Typo.Body>
-                        {extractCashAmount(Prize.middle.third.prize)}
-                      </Typo.Body>
                     </div>
                     <div className={s.card_row}>
                       <Typo.Body className={s.label}>상품</Typo.Body>
