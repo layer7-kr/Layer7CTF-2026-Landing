@@ -21,7 +21,7 @@ export default function Header() {
   const registrationStatus = useRegistrationStatus();
   const registrationLabel =
     registrationStatus === "open"
-      ? "참가 신청"
+      ? "참가신청"
       : registrationStatus === "closed"
         ? "신청 마감"
         : "Coming Soon";
@@ -78,7 +78,7 @@ export default function Header() {
               disabled={registrationStatus !== "open"}
               onClick={openRegistration}
             >
-              Layer7 CTF 26 {registrationLabel}
+              {registrationLabel}
             </Button>
           </HStack>
 
