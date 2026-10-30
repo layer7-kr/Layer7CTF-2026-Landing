@@ -21,7 +21,7 @@ export const Prize: PrizeData = {
   middle: {
     first: {
       medal: true,
-      prize: "로지텍 PRO X SUPERLIGHT 2",
+      prize: "로지텍 PRO X SUPERLIGHT",
     },
     second: {
       medal: true,
