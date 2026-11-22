@@ -20,6 +20,23 @@ export interface WinnersData {
 }
 
 export const Winners: WinnersData = {
+  "2026": {
+    adult: {
+      first: { name: "hwisung" },
+      second: { name: "chan" },
+      third: { name: "NaraDoSeong" },
+    },
+    highSchool: {
+      first: { name: "barm" },
+      second: { name: "Sh1nYy" },
+      third: { name: "On3n3ss" },
+    },
+    middleSchool: {
+      first: { name: "jxngbeen" },
+      second: { name: "12년생바이트가레이어세븐을제패하다??" },
+      third: { name: "saerom yangyang eeeeeee" },
+    },
+  },
   "2025": {
     adult: {
       first: { name: "볼다기호로록" },

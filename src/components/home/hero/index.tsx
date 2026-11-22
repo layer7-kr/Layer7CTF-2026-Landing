@@ -55,7 +55,7 @@ export default function Hero() {
         </h1>
         <div className={s.countdown_container}>
           <Typo.BodyLarge className={s.coming_soon}>
-            {timeLeft > 0 ? "대회 시작까지" : "대회가 시작되었습니다"}
+            {timeLeft > 0 ? "대회 시작까지" : "대회가 종료되었습니다"}
           </Typo.BodyLarge>
           {timeLeft > 0 && (
             <Typo.Headline className={s.countdown}>
